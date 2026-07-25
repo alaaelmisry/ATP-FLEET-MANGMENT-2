@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ATP FLEET MANAGEMENT</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<!-- الصفحة الرئيسية -->
+
+<div id="homePage" class="page">
+
+    <div class="container">
+
+        <div class="logo-container">
+
+            <!-- ضع ملف الشعار باسم logo.png داخل المشروع -->
+            <img src="logo.png" alt="Company Logo" class="logo">
+
+        </div>
+
+        <h1>شركة الراشد للتقنية والطاقة</h1>
+
+        <h2>ATP FLEET MANAGEMENT</h2>
+
+        <h3 id="todayName"></h3>
+
+        <h3 id="todayDate"></h3>
+
+        <h3 id="todayTime"></h3>
+
+        <button onclick="showRegisterPage()">
+            تسجيل حالة المركبات 📝
+        </button>
+
+        <button onclick="showViewPage()">
+            عرض حالة المركبات 🧿
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- صفحة تسجيل حالة المركبات -->
+
+<div id="registerPage" class="page" style="display:none;">
+
+    <div class="container">
+
+        <h2>تسجيل حالة المركبات</h2>
+
+
+        <!-- البطاقة رقم 1 -->
+
+        <div class="card">
+
+            <h3>نوع المركبة</h3>
+
+            <select id="vehicleType">
+
+                <option value="">اختر نوع المركبة</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+
+            </select>
+
+        </div>
+
+
+        <!-- البطاقة رقم 2 -->
+
+        <div class="card">
+
+            <h3>رقم المركبة</h3>
+
+            <select id="vehicleNumber">
+
+                <option value="">اختر رقم المركبة</option>
+
+            </select>
+
+        </div>
+
+
+        <!-- البطاقة رقم 3 -->
+
+        <div class="card">
+
+            <h3>اسم السائق</h3>
+
+            <div>
+
+                <input type="radio"
+                       id="mainDriver"
+                       name="driverOption"
+                       checked>
+
+                <label for="mainDriver">
+
+                    <span id="driverName">
+                        اسم السائق
+                    </span>
+
+                </label>
+
+            </div>
+
+
+            <br>
+
+
+            <div>
+
+                <input type="radio"
+                       id="otherDriver"
+                       name="driverOption">
+
+                <label for="otherDriver">
+
+                    شخص آخر
+
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <!-- بطاقة اسم السائق الآخر -->
+
+        <div class="card"
+             id="otherDriverCard"
+             style="display:none;">
+
+            <h3>اسم السائق</h3>
+
+            <input type="text"
+                   id="otherDriverName"
+                   placeholder="اكتب اسم السائق">
+
+        </div>
+
+
+
+        <!-- البطاقة رقم 4 -->
+
+        <div class="card">
+
+            <h3>حالة المركبة</h3>
+
+            <div>
+
+                <input type="radio"
+                       id="working"
+                       name="vehicleStatus"
+                       checked>
+
+                <label for="working">
+
+                    تعمل
+
+                </label>
+
+            </div>
+
+
+            <br>
+
+
+            <div>
+
+                <input type="radio"
+                       id="stopped"
+                       name="vehicleStatus">
+
+                <label for="stopped">
+
+                    متوقفة
+
+                </label>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- سبب التوقف -->
+
+        <div class="card"
+             id="reasonCard"
+             style="display:none;">
+
+            <h3>سبب التوقف</h3>
+
+            <textarea id="stopReason"
+                      rows="4"
+                      placeholder="يرجى كتابة سبب توقف المركبة"></textarea>
+
+        </div>
+
+
+
+        <!-- البطاقة رقم 5 -->
+
+        <div class="card">
+
+            <button onclick="updateVehicleStatus()">
+
+                تحديث حالة المركبة
+
+            </button>
+
+        </div>
+
+
+
+        <!-- البطاقة رقم 6 -->
+
+        <div class="card">
+
+            <button onclick="sendWhatsAppReport()">
+
+                إرسال التقرير عبر واتساب
+
+            </button>
+
+        </div>
+
+
+        <button onclick="goHome()">
+
+            العودة للصفحة الرئيسية
+
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- صفحة عرض حالة المركبات -->
+
+<div id="viewPage" class="page" style="display:none;">
+
+    <div class="container">
+
+        <h2>عرض حالة المركبات</h2>
+
+
+        <!-- القسم الأول -->
+
+        <div class="section">
+
+            <button onclick="toggleSection('smallVehicles')">
+
+                المركبات الصغيرة
+
+            </button>
+
+            <div id="smallVehicles"
+                 style="display:none;">
+
+            </div>
+
+        </div>
+
+
+
+        <!-- القسم الثاني -->
+
+        <div class="section">
+
+            <button onclick="toggleSection('trucks')">
+
+                رؤوس الشاحنات والقاطرات
+
+            </button>
+
+            <div id="trucks"
+                 style="display:none;">
+
+            </div>
+
+        </div>
+
+
+
+        <!-- القسم الثالث -->
+
+        <div class="section">
+
+            <button onclick="toggleSection('equipment')">
+
+                المعدات الكبيرة والصغيرة
+
+            </button>
+
+            <div id="equipment"
+                 style="display:none;">
+
+            </div>
+
+        </div>
+
+
+
+        <button onclick="goHome()">
+
+            العودة للصفحة الرئيسية
+
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- ملف الجافاسكربت -->
+
+<script src="script.js"></script>
+
+</body>
+</html>
